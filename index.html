@@ -118,6 +118,32 @@
             padding: 10px;
         }
 
+        .journey-circle .hover-desc {
+    display: none;
+    position: absolute;
+    bottom: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal-deep);
+    color: white;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 10px 16px;
+    border-radius: 6px;
+    width: 220px;
+    text-align: center;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.journey-circle {
+    position: relative;
+}
+
+.journey-circle:hover .hover-desc {
+    display: block;
+}
+        
         .journey-line {
             width: 60px;
             height: 4px;
@@ -346,17 +372,20 @@
     <!-- JOURNEY -->
     <div class="journey-section">
         <div class="journey-track">
-            <a href="community-capability-assessment.html" target="_blank" class="journey-circle">
-                <span>Assess<br>Your<br>Strengths</span>
-            </a>
-            <div class="journey-line"></div>
-            <a href="Before-You-Build.pdf" target="_blank" class="journey-circle">
-                <span>Before<br>You Build</span>
-            </a>
-            <div class="journey-line"></div>
-            <a href="Who-Fits-Where/index.html" target="_blank" class="journey-circle">
-                <span>Who Fits<br>Where?</span>
-            </a>
+           <a href="community-capability-assessment.html" target="_blank" class="journey-circle">
+    <span>Assess<br>Your<br>Strengths</span>
+    <div class="hover-desc">Interactive self-assessment across six dimensions with role recommendations and a development plan.</div>
+</a>
+<div class="journey-line"></div>
+<a href="Before-You-Build.pdf" target="_blank" class="journey-circle">
+    <span>Before<br>you Build</span>
+    <div class="hover-desc">A 5-week course design for teams moving from self-assessment to community action.</div>
+</a>
+<div class="journey-line"></div>
+<a href="Who-Fits-Where/index.html" target="_blank" class="journey-circle">
+    <span>Who Fits<br>Where?</span>
+    <div class="hover-desc">A branching scenario where facilitators practice staffing decisions and see six-week consequences.</div>
+</a>
         </div>
     </div>
 
