@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Contribution Capability Assessment</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
+            background-color: #f4f7f6;
+            color: #2d3a36;
+        }
+        
+        /* Teal color system */
+        :root {
+            --teal: #4A6E80;
+            --teal-dark: #3A5A6A;
+            --teal-light: #6A9BB0;
+            --teal-bg: #E8F0F3;
+            --teal-bg-light: #F2F7F9;
+            --teal-accent: #2D4A56;
+            --warm: #C07844;
+            --warm-light: #F5EDE6;
+            --fern: #5B7E5F;
+            --fern-light: #E8F0EB;
+            --bark: #3B3028;
+            --sand: #D9D0C3;
+            --parchment: #FAF7F2;
+            --slate: #6B6560;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, var(--teal-light) 100%);
+            color: white;
+            padding: 28px 30px;
+            box-shadow: 0 2px 12px rgba(74,110,128,0.2);
+        }
+        
+        .header h1 { font-size: 26px; margin-bottom: 4px; font-weight: 600; }
+        .header p { font-size: 16px; opacity: 0.85; font-weight: 300; }
+        
+        .main-nav {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+            display: flex;
+            overflow-x: auto;
+        }
+        
+        .nav-btn {
+            padding: 14px 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--slate);
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .nav-btn:hover { background-color: var(--teal-bg-light); color: var(--teal-dark); }
+        .nav-btn.active { color: var(--teal); border-bottom-color: var(--teal); background-color: var(--teal-bg-light); }
+        
+        .container { max-width: 1140px; margin: 0 auto; padding: 30px 24px; }
+        .section { display: none; }
+        .section.active { display: block; }
+        
+        /* Cards */
+        .card {
+            background: white;
+            padding: 36px;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+        
+        .card h2 {
+            color: var(--teal-dark);
+            margin-bottom: 16px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .card p { color: var(--slate); line-height: 1.7; font-size: 17px; text-align: left; }
+        
+        /* Welcome / entry cards */
+        .role-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+        
+        .role-card {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+            color: white;
+            padding: 28px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.25s;
+            border: 2px solid transparent;
+        }
+        
+        .role-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(74,110,128,0.25); }
+        .role-card h3 { color: white; font-size: 22px; margin-bottom: 10px; }
+        .role-card p { opacity: 0.9; font-size: 15px; line-height: 1.6; color: white; }
+        
+        /* Form elements */
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--teal-dark);
+            font-size: 16px;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #dde4e2;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(74,110,128,0.1);
+        }
+        
+        .form-group textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+        
+        /* Buttons */
+        .btn {
+            padding: 13px 26px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .btn-primary { background: var(--teal); color: white; }
+        .btn-primary:hover { background: var(--teal-dark); }
+        .btn-primary:disabled { background: #b8c9cf; cursor: not-allowed; }
+        
+        .btn-secondary { background: var(--teal-bg); color: var(--teal-dark); }
+        .btn-secondary:hover { background: #d4e3e8; }
+        
+        .btn-warm { background: var(--warm); color: white; }
+        .btn-warm:hover { background: #a8653a; }
+        
+        .btn-outline { background: white; color: var(--teal); border: 2px solid var(--teal); padding: 10px 22px; }
+        .btn-outline:hover { background: var(--teal-bg-light); }
+        
+        /* Progress bar */
+        .progress-container {
+            background: var(--teal-bg);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+        }
+        
+        .progress-text { font-size: 15px; color: var(--teal-dark); margin-bottom: 8px; font-weight: 500; }
+        .progress-track { background: #d4e3e8; border-radius: 4px; height: 6px; overflow: hidden; }
+        .progress-fill { background: var(--teal); height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+        
+        /* Rating options */
+        .rating-option {
+            display: flex;
+            align-items: flex-start;
+            margin: 12px 0;
+            padding: 16px;
+            background-color: white;
+            border-radius: 10px;
+            border: 2px solid #e8edeb;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .rating-option:hover { border-color: var(--teal-light); background-color: var(--teal-bg-light); }
+        .rating-option.selected { border-color: var(--teal); background-color: var(--teal-bg); }
+        
+        .rating-option input[type="radio"] {
+            margin-right: 14px;
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--teal);
+            cursor: pointer;
+        }
+        
+        .rating-option .level-badge {
+            display: inline-block;
+            font-weight: 700;
+            color: var(--teal);
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        
+        .rating-option .level-text { color: var(--slate); font-size: 16px; line-height: 1.6; }
+        
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #e8edeb;
+        }
+        
+        /* Results */
+        .results-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        .results-table th {
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--teal);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .results-table th:first-child { border-radius: 8px 0 0 0; }
+        .results-table th:last-child { border-radius: 0 8px 0 0; }
+        .results-table td { padding: 12px 16px; border-bottom: 1px solid #e8edeb; font-size: 16px; }
+        .results-table tr:hover { background-color: var(--teal-bg-light); }
+        
+        /* Level bars for team view */
+        .level-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .level-bar {
+            height: 24px;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            min-width: 28px;
+        }
+        
+        /* Team grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .member-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e8edeb;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .member-card:hover { border-color: var(--teal); box-shadow: 0 4px 16px rgba(74,110,128,0.12); }
+        .member-card.selected { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(74,110,128,0.15); }
+        
+        .member-name { font-weight: 600; font-size: 18px; color: var(--bark); margin-bottom: 4px; }
+        .member-group { font-size: 14px; color: var(--slate); margin-bottom: 12px; }
+        
+        .mini-bars { display: flex; flex-direction: column; gap: 4px; }
+        .mini-bar-row { display: flex; align-items: center; gap: 8px; }
+        .mini-bar-label { font-size: 13px; color: var(--slate); width: 90px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+        .mini-bar {
+            flex: 1;
+            height: 8px;
+            background: #e8edeb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .mini-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+        .card-scale-ruler {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 10px;
+            padding-top: 6px;
+        }
+        .card-scale-spacer {
+            width: 90px;
+            flex-shrink: 0;
+            padding-right: 8px;
+        }
+        .card-scale-track {
+            flex: 1;
+            position: relative;
+            height: 20px;
+        }
+        .card-scale-mark {
+            position: absolute;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #b5ada5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card-scale-tick {
+            width: 1px;
+            height: 6px;
+            background: #d5cfc8;
+            margin-bottom: 2px;
+        }
+        .card-prefs {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--warm);
+            margin-top: 10px;
+        }
+        
+        /* Team summary chart */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+        
+        .summary-item {
+            text-align: center;
+            padding: 16px 8px;
+            background: var(--teal-bg-light);
+            border-radius: 10px;
+        }
+        
+        .summary-item .summary-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--teal);
+            margin-bottom: 4px;
+        }
+        
+        .summary-item .summary-label {
+            font-size: 13px;
+            color: var(--slate);
+            line-height: 1.3;
+        }
+        
+        /* Development plan */
+        .dev-plan-section {
+            background: var(--teal-bg-light);
+            border: 2px solid var(--teal-bg);
+            border-radius: 14px;
+            padding: 32px;
+            margin-top: 24px;
+        }
+        
+        .dev-plan-section h3 {
+            color: var(--teal-dark);
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        
+        .dev-plan-prompt {
+            margin-bottom: 20px;
+        }
+        
+        .dev-plan-prompt label {
+            display: block;
+            font-weight: 600;
+            color: var(--teal-dark);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .dev-plan-prompt textarea,
+        .dev-plan-prompt input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #dde4e2;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        
+        .dev-plan-prompt textarea:focus,
+        .dev-plan-prompt input[type="text"]:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(74,110,128,0.1);
+        }
+        
+        .dev-plan-prompt textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+        
+        .dev-plan-prompt .prompt-hint {
+            font-size: 15px;
+            color: var(--slate);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .ask-teammate-box {
+            background: white;
+            border: 2px dashed var(--teal-light);
+            border-radius: 12px;
+            padding: 28px;
+            margin-top: 20px;
+        }
+        
+        .ask-teammate-box textarea {
+            min-height: 100px;
+        }
+        
+        .ask-teammate-box h4 {
+            color: var(--teal);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        
+        .ask-teammate-box p {
+            font-size: 16px;
+            color: var(--slate);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        /* Export buttons */
+        .export-bar {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid var(--teal-bg);
+        }
+        
+        /* Utility */
+        .text-center { text-align: center; }
+        .mt-12 { margin-top: 12px; }
+        .mt-20 { margin-top: 20px; }
+        .mt-32 { margin-top: 32px; }
+        .mb-8 { margin-bottom: 8px; }
+        .flex-gap { display: flex; gap: 12px; flex-wrap: wrap; }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-teal { background: var(--teal-bg); color: var(--teal-dark); }
+        .badge-warm { background: var(--warm-light); color: var(--warm); }
+        .badge-fern { background: var(--fern-light); color: var(--fern); }
+        
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--teal);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        .home-link:hover { color: var(--teal-dark); }
+        
+        /* Role recommendation cards */
+        .role-rec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .role-rec-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 2px solid #e8edeb;
+            transition: all 0.2s;
+        }
+        .role-rec-card.current-fit { border-color: var(--fern); }
+        .role-rec-card.aspirational { border-color: var(--warm); border-style: dashed; }
+        .role-rec-card .role-rec-title {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--bark);
+            margin-bottom: 4px;
+        }
+        .role-rec-card .role-rec-match {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .role-rec-card .role-rec-match.strong { color: var(--fern); }
+        .role-rec-card .role-rec-match.grow { color: var(--warm); }
+        .role-rec-card .role-rec-why {
+            font-size: 15px;
+            color: var(--slate);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .role-rec-card .role-rec-dims {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .role-rec-card .dim-pill {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .dim-pill.strong { background: var(--fern-light); color: var(--fern); }
+        .dim-pill.neutral { background: var(--teal-bg); color: var(--teal); }
+        .dim-pill.gap { background: var(--warm-light); color: var(--warm); }
+        
+        /* Roles catalog */
+        .roles-catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .catalog-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e8edeb;
+            transition: all 0.2s;
+        }
+        .catalog-card:hover { border-color: var(--teal); box-shadow: 0 4px 16px rgba(74,110,128,0.1); }
+        .catalog-card h4 { font-size: 18px; color: var(--bark); margin-bottom: 6px; }
+        .catalog-card .catalog-why { font-size: 15px; color: var(--slate); line-height: 1.6; margin-bottom: 12px; }
+        .catalog-card .catalog-needs { font-size: 13px; color: var(--teal-dark); font-weight: 500; }
+        .catalog-card .catalog-dims { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+        .catalog-card .cdim {
+            font-size: 11px; padding: 3px 10px; border-radius: 10px; font-weight: 600;
+        }
+        .cdim-primary { background: var(--teal-bg); color: var(--teal-dark); }
+        .cdim-secondary { background: #f0f0ee; color: var(--slate); }
+        
+        /* Before You Build CTA */
+        .byb-cta {
+            background: linear-gradient(135deg, var(--fern) 0%, #4a8a5e 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 32px;
+            margin-top: 32px;
+        }
+        .byb-cta h3 { font-size: 22px; margin-bottom: 8px; color: white; }
+        .byb-cta p { font-size: 16px; opacity: 0.92; line-height: 1.6; color: white; }
+        .byb-cta .btn { margin-top: 16px; background: white; color: var(--fern); font-weight: 700; }
+        .byb-cta .btn:hover { background: var(--fern-light); }
+        
+        /* Preference checkboxes */
+        .pref-option {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            background: white;
+            border: 2px solid #e8edeb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pref-option:hover { border-color: var(--teal-light); background: var(--teal-bg-light); }
+        .pref-option.checked { border-color: var(--teal); background: var(--teal-bg); }
+        .pref-option input[type="checkbox"] {
+            width: 20px; height: 20px; margin-right: 14px; accent-color: var(--teal); cursor: pointer;
+        }
+        .pref-option .pref-label { font-weight: 600; font-size: 16px; color: var(--bark); }
+        .pref-option .pref-desc { font-size: 14px; color: var(--slate); margin-top: 2px; }
+        .pref-badge {
+            display: inline-block; padding: 3px 10px; border-radius: 10px;
+            font-size: 11px; font-weight: 600; background: #FDF0E6; color: #C07844;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+    <h1>Community Contribution Capability Assessment</h1>
+    <p>Discovering where your strengths meet your community's needs</p>
+</div>
+
+<nav class="main-nav">
+    <button class="nav-btn active" onclick="showSection('welcome')">Welcome</button>
+    <button class="nav-btn" onclick="showSection('self-assessment')">Self-Assessment</button>
+    <button class="nav-btn" onclick="showSection('team-view')">Your Team</button>
+    <button class="nav-btn" onclick="showSection('roles')">Community Roles</button>
+    <button class="nav-btn" onclick="showSection('dev-plan')">Development Plan</button>
+</nav>
+
+<div class="container">
+
+    <!-- WELCOME -->
+    <div id="section-welcome" class="section active">
+        <div class="card">
+            <h2>What do you bring to your community?</h2>
+            <p>Your group has chosen <strong>hunger and food insecurity</strong> as your area of focus. This assessment helps you identify the strengths and preferences you each bring to that work — so you can figure out who does what, where the gaps are, and how to grow together.</p>
+            <p class="mt-12" style="background:white; border-left:4px solid var(--warm); padding:14px 18px; border-radius:0 8px 8px 0; color:var(--bark); line-height:1.6;"><strong style="color:var(--warm);">An important starting point:</strong> People in your community are already working on hunger and food insecurity. Before you interpret your results, connect with them. Their experience will shape how you read your strengths, which roles actually matter, and where your team can contribute without duplicating what already exists. This assessment enhances those conversations — it doesn't replace them.</p>
+            <p class="mt-12">You'll rate yourself across six dimensions of community contribution, then tell us which areas you most enjoy. Every team needs a mix — no single person needs to be strong in all six.</p>
+            
+            <div class="role-cards">
+                <div class="role-card" onclick="showSection('self-assessment')">
+                    <h3>Take the Assessment</h3>
+                    <p>Rate yourself across six dimensions of community contribution. Takes about 5 minutes.</p>
+                </div>
+                <div class="role-card" onclick="showSection('team-view')" style="background: linear-gradient(135deg, var(--teal-accent) 0%, var(--teal-dark) 100%);">
+                    <h3>See Your Team</h3>
+                    <p>View how your group's strengths combine — where you're strong and where to grow together.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SELF-ASSESSMENT -->
+    <div id="section-self-assessment" class="section">
+        
+        <!-- Intro -->
+        <div id="sa-intro" class="card">
+            <h2>Self-Assessment</h2>
+            <p>For each of six dimensions, you'll read five levels and choose the one that sounds most like you right now. After that, you'll pick the areas you most enjoy or prefer — because where you're strong and where you're drawn aren't always the same thing, and both matter for finding the right role.</p>
+            
+            <div style="max-width: 400px; margin: 24px auto 0;">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="sa-name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Your Neighborhood Group</label>
+                    <select id="sa-group">
+                        <option value="">-- Select your group --</option>
+                        <option value="Riverside">Riverside</option>
+                        <option value="Hilltop">Hilltop</option>
+                        <option value="Downtown">Downtown</option>
+                        <option value="Eastside">Eastside</option>
+                        <option value="New">I'm new — not in a group yet</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="startSelfAssessment()" style="width:100%; margin-top: 8px;">Begin Assessment →</button>
+            </div>
+        </div>
+        
+        <!-- Assessment form -->
+        <div id="sa-form" style="display:none;">
+            <div class="progress-container">
+                <div class="progress-text" id="sa-progress-text">Question 1 of 6</div>
+                <div class="progress-track"><div class="progress-fill" id="sa-progress-bar" style="width:0%"></div></div>
+            </div>
+            
+            <div class="card">
+                <div id="sa-capability-container"></div>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="sa-prev-btn" onclick="prevCapability()" disabled>← Previous</button>
+                    <button class="btn btn-primary" id="sa-next-btn" onclick="nextCapability()" disabled>Next →</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Preference selection -->
+        <div id="sa-preferences" style="display:none;">
+            <div class="card">
+                <h2>What do you prefer?</h2>
+                <p>You've rated your strengths. Now tell us which areas you most <em>enjoy</em> or are drawn to — even if they're not your strongest. When you're strong in many areas, preferences help us recommend the roles where you'll be most energized.</p>
+                <p class="mt-12" style="font-size:15px; font-weight:600; color:var(--teal-dark);">Check up to three:</p>
+                
+                <div id="sa-pref-checkboxes" class="mt-20" style="display:grid; gap:12px;"></div>
+                
+                <div class="nav-buttons mt-20">
+                    <button class="btn btn-secondary" onclick="backToLastRating()">← Back</button>
+                    <button class="btn btn-primary" onclick="completeWithPreferences()">See My Results →</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results -->
+        <div id="sa-results" style="display:none;">
+            <div class="card">
+                <h2>Your Results</h2>
+                <p>Here's where you placed yourself across the six dimensions. Remember — this is a starting point for understanding what you bring, not a score to maximize.</p>
+                
+                <table class="results-table mt-20">
+                    <thead>
+                        <tr>
+                            <th>Dimension</th>
+                            <th style="text-align:center;">Level</th>
+                            <th style="text-align:center;">Stage</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sa-results-tbody"></tbody>
+                </table>
+                
+                <div class="mt-32" id="sa-role-recommendations"></div>
+                
+                <div class="mt-32" style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="showSection('team-view')">See Your Team →</button>
+                    <button class="btn btn-secondary" onclick="showSection('dev-plan')">Create Development Plan</button>
+                    <button class="btn btn-outline" onclick="resetSelfAssessment()">Retake Assessment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TEAM VIEW -->
+    <div id="section-team-view" class="section">
+        <div class="card">
+            <h2>Your Team</h2>
+            <p>This view shows your group's strengths and preferences as they work on <strong>hunger and food insecurity</strong>. Click any person to see their full profile — what they're strong in, what they prefer, and which community roles fit them best. These profiles are a starting point for conversation with each other and with practitioners already doing this work in your community.</p>
+            <p class="mt-12" style="font-size:15px; color:var(--slate);">The <span class="badge badge-fern" style="font-size:11px;">green badge</span> on each card is a recommended role based on their combination of strengths and preferences.</p>
+            
+            <!-- Group filter -->
+            <div class="mt-20" style="display:flex; gap:12px; align-items:center;">
+                <label style="font-weight:600; font-size:16px; color:var(--teal-dark);">Filter by group:</label>
+                <select id="team-filter" onchange="renderTeamView()" style="padding:10px 14px; border:2px solid #dde4e2; border-radius:8px; font-family:inherit; font-size:16px;">
+                    <option value="all">All Groups</option>
+                    <option value="Riverside">Riverside</option>
+                    <option value="Hilltop">Hilltop</option>
+                    <option value="Downtown">Downtown</option>
+                    <option value="Eastside">Eastside</option>
+                </select>
+            </div>
+            
+            <!-- Team member cards -->
+            <div class="team-grid" id="team-grid"></div>
+        </div>
+        
+        <!-- Selected member detail -->
+        <div id="member-detail" style="display:none;">
+            <div class="card">
+                <button class="btn btn-secondary" onclick="hideMemberDetail()" style="margin-bottom:16px;">← Back to Team</button>
+                <div id="member-detail-content"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- COMMUNITY ROLES CATALOG -->
+    <div id="section-roles" class="section">
+        <div class="card">
+            <h2>Community Roles</h2>
+            <p>Every community effort needs people in different roles. Each role draws on a unique combination of the six capability dimensions — no role requires perfection in all of them. Browse the full catalog to understand what each role needs and why it matters.</p>
+            
+            <div id="roles-user-match" class="mt-20"></div>
+            
+            <div class="roles-catalog mt-20" id="roles-catalog"></div>
+        </div>
+    </div>
+    
+    <!-- DEVELOPMENT PLAN -->
+    <div id="section-dev-plan" class="section">
+        <div class="card">
+            <h2>Your Development Plan</h2>
+            <p>Now that you've seen your results and the team's overall picture, choose one or two dimensions where you'd like to grow. Fill in the prompts below, then save or email your plan.</p>
+            
+            <div class="dev-plan-section mt-20">
+                <h3>Growth Area 1</h3>
+                
+                <div class="dev-plan-prompt">
+                    <label>Dimension I want to develop:</label>
+                    <select id="dev-dimension-1" class="form-group" style="width:100%; padding:12px 16px; border:2px solid #dde4e2; border-radius:8px; font-family:inherit; font-size:16px;">
+                        <option value="">-- Choose a dimension --</option>
+                    </select>
+                </div>
+                
+                <div class="dev-plan-prompt">
+                    <label>Where I am now and what that looks like for me:</label>
+                    <textarea id="dev-current-1" placeholder="Describe your current level in your own words..."></textarea>
+                </div>
+                
+                <div class="dev-plan-prompt">
+                    <label>Where I'd like to be and what that would look like:</label>
+                    <textarea id="dev-goal-1" placeholder="What would the next level look like for you?"></textarea>
+                </div>
+                
+                <div class="dev-plan-prompt">
+                    <label>One thing I can do in the next month to move in that direction:</label>
+                    <textarea id="dev-action-1" placeholder="A specific, concrete step..." style="min-height:60px;"></textarea>
+                </div>
+                
+                <div class="ask-teammate-box">
+                    <h4>Ask a Teammate</h4>
+                    <p>Look at the team results — who is strong in this area? Ask them: <em>"What helped you develop this strength? Is there a resource, experience, or practice you'd recommend?"</em></p>
+                    <div class="dev-plan-prompt" style="margin-bottom:0;">
+                        <label>Who I'll ask:</label>
+                        <input type="text" id="dev-ask-who-1" placeholder="Name of teammate...">
+                    </div>
+                    <div class="dev-plan-prompt mt-12" style="margin-bottom:0;">
+                        <label>What they recommended:</label>
+                        <textarea id="dev-ask-rec-1" placeholder="Print your plan now and fill this in when you talk..." style="min-height:100px;"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Optional second growth area -->
+            <div id="growth-area-2" style="display:none;">
+                <div class="dev-plan-section mt-20">
+                    <h3>Growth Area 2</h3>
+                    <div class="dev-plan-prompt">
+                        <label>Dimension I want to develop:</label>
+                        <select id="dev-dimension-2" style="width:100%; padding:12px 16px; border:2px solid #dde4e2; border-radius:8px; font-family:inherit; font-size:16px;">
+                            <option value="">-- Choose a dimension --</option>
+                        </select>
+                    </div>
+                    <div class="dev-plan-prompt">
+                        <label>Where I am now and what that looks like for me:</label>
+                        <textarea id="dev-current-2" placeholder="Describe your current level..."></textarea>
+                    </div>
+                    <div class="dev-plan-prompt">
+                        <label>Where I'd like to be and what that would look like:</label>
+                        <textarea id="dev-goal-2" placeholder="What would the next level look like?"></textarea>
+                    </div>
+                    <div class="dev-plan-prompt">
+                        <label>One thing I can do in the next month:</label>
+                        <textarea id="dev-action-2" placeholder="A specific step..." style="min-height:60px;"></textarea>
+                    </div>
+                    <div class="ask-teammate-box">
+                        <h4>Ask a Teammate</h4>
+                        <p>Who on your team is strong here? Ask them what helped.</p>
+                        <div class="dev-plan-prompt" style="margin-bottom:0;">
+                            <label>Who I'll ask:</label>
+                            <input type="text" id="dev-ask-who-2" placeholder="Name...">
+                        </div>
+                        <div class="dev-plan-prompt mt-12" style="margin-bottom:0;">
+                            <label>What they recommended:</label>
+                            <textarea id="dev-ask-rec-2" placeholder="Print your plan now and fill this in when you talk..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20">
+                <button class="btn btn-secondary" id="add-growth-btn" onclick="toggleGrowthArea2()">+ Add a second growth area</button>
+                <p style="font-size:15px; color:var(--slate); font-style:italic; margin-top:8px;">Keep it to two at most — focus beats breadth.</p>
+            </div>
+            
+            <div class="export-bar">
+                <button class="btn btn-primary" onclick="downloadPlan()">📄 Download My Plan</button>
+                <button class="btn btn-warm" onclick="emailPlan()">✉️ Email to Myself</button>
+                <button class="btn btn-secondary" onclick="savePlanProgress()">💾 Save Progress</button>
+            </div>
+            
+            <!-- Role context for development -->
+            <div id="dev-plan-role-context" class="mt-32"></div>
+            
+            <!-- Before You Build CTA -->
+            <div class="byb-cta">
+                <h3>Ready to put your team's strengths to work?</h3>
+                <p>Now that your group knows what you each bring and where you want to grow, take the next step together. <strong>Before You Build</strong> is a 5-week course that walks your team through assessing community food insecurity and designing a response — using the exact strengths you just identified. Each week includes a Zoom discussion where your team invites someone already working on food insecurity in your area to react to what you're learning and keep your efforts grounded in what the community actually needs.</p>
+                <p class="mt-12" style="opacity:0.8; font-size:14px;">This is where individual capability becomes collective action.</p>
+                <button class="btn" onclick="showSection('welcome')">Explore Before You Build →</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ==================== DATA ====================
+const levelLabels = ['', 'Exploring', 'Building', 'Contributing', 'Leading', 'Shaping'];
+
+const capabilities = [
+    {
+        name: "Research & Analysis",
+        description: "Finding information, seeing patterns, understanding how things connect.",
+        levels: {
+            1: "I'm curious about how things work and I ask good questions — I'd like to learn how to turn that into structured research.",
+            2: "I'm getting better at finding useful information from public sources and identifying what matters, and I'm building confidence in drawing conclusions.",
+            3: "I consistently gather information from multiple sources, spot meaningful patterns, and produce clear summaries that help a group decide what to do.",
+            4: "I design research approaches for specific questions, synthesize complex information, and translate what I find into recommendations others can act on.",
+            5: "I lead analytical efforts that shape group strategy, connect findings across domains, and mentor others in research methods."
+        }
+    },
+    {
+        name: "Relationship Building & Trust",
+        description: "Connecting with people, building genuine trust, creating spaces where people feel safe to participate.",
+        levels: {
+            1: "I'm good at one-on-one connection and genuinely interested in understanding other people's experiences — I'd like to learn how to build trust in broader community settings.",
+            2: "I'm developing my ability to build relationships beyond my existing networks and becoming more aware of how power dynamics and lived experience shape trust.",
+            3: "I build and maintain trusting relationships across diverse settings — people feel comfortable sharing honest perspectives with me and I follow through on commitments.",
+            4: "I cultivate deep trust across complex stakeholder landscapes, repair strained relationships, and create spaces where historically marginalized voices are centered.",
+            5: "I'm a recognized connector who brings unlikely partners together, sustains coalitions through difficult periods, and mentors others in relationship building."
+        }
+    },
+    {
+        name: "Organization & Coordination",
+        description: "Planning, keeping projects on track, making sure good intentions become completed actions.",
+        levels: {
+            1: "I'm naturally organized and I notice when a group effort needs more structure — I'd like to learn how to coordinate work beyond my own tasks.",
+            2: "I'm building my coordination skills and can manage straightforward tasks and timelines, and I'm learning how to plan for contingencies without micromanaging.",
+            3: "I reliably plan and manage projects from start to finish, communicate clearly about expectations, and keep groups focused without creating unnecessary overhead.",
+            4: "I coordinate complex efforts with competing priorities, anticipate bottlenecks before they happen, and balance efficiency with the relational pace community work requires.",
+            5: "I design organizational systems that sustain initiatives beyond any single project, build infrastructure others can maintain, and mentor emerging coordinators."
+        }
+    },
+    {
+        name: "Communication & Advocacy",
+        description: "Writing clearly, speaking persuasively, translating complex ideas for different audiences, amplifying community needs.",
+        levels: {
+            1: "I express myself clearly and people tell me I'm good at explaining things — I'd like to learn how to use communication as a tool for change.",
+            2: "I'm building my communication skills for community contexts and learning how to frame issues in ways that resonate with people who have different starting points.",
+            3: "I communicate effectively across formats and audiences, tailor my message without diluting it, and use stories and data together persuasively.",
+            4: "I craft communication strategies that advance specific goals — policy change, public awareness, fundraising — and coach others in message development.",
+            5: "I'm a recognized voice for community priorities who shapes public narratives, influences institutional decisions, and builds systems that amplify community voices."
+        }
+    },
+    {
+        name: "Direct Service & Presence",
+        description: "Showing up consistently, doing hands-on work, sustaining effort over time where the need is.",
+        levels: {
+            1: "I'm ready to show up and do the work — I'm reliable when I commit and I want to understand what ground-level community work looks like before I try to lead it.",
+            2: "I'm building my direct service experience, showing up consistently, and learning the rhythms of ongoing community work while finding my sustainable pace.",
+            3: "I consistently contribute through hands-on service, understand operational realities, adapt when things go sideways, and share ground-level observations that improve how things run.",
+            4: "I anchor service operations with reliability and practical expertise, train new volunteers, and bridge the gap between planning and execution with frontline insight.",
+            5: "I set the standard for sustained effective service, design workflows that reduce burnout, and build cultures of commitment in the teams I work with."
+        }
+    },
+    {
+        name: "Resource Mobilization",
+        description: "Finding and securing what community work requires — funding, goods, space, equipment, people.",
+        levels: {
+            1: "I'm resourceful by nature and comfortable asking for help — I can see opportunities for getting what a project needs and I'd like to learn to do it more strategically.",
+            2: "I'm developing my ability to make asks for donations, volunteer time, and in-kind support, and I'm learning what motivates different types of givers.",
+            3: "I successfully identify and manage resources across multiple channels, maintain donor and partner relationships, and match available support to program needs.",
+            4: "I develop resource strategies that sustain programs beyond initial enthusiasm, diversify funding streams, and connect resource development to measurable outcomes.",
+            5: "I build resource ecosystems that make community initiatives financially sustainable long-term and mentor others in fundraising and partnership development."
+        }
+    }
+];
+
+// Color mapping for levels
+const levelColors = ['', '#6A9BB0', '#4A8A9E', '#4A6E80', '#3A5A6A', '#2D4A56'];
+
+// ==================== ROLE ENGINE ====================
+// Dimension order: [Research, Relationships, Organization, Communication, DirectService, Resources]
+// Weights: 5=critical, 4=important, 3=helpful, 2=useful, 1=minor
+
+const communityRoles = [
+    {
+        name: "Needs Assessment Lead",
+        why: "Figures out what the community actually needs by gathering data, talking to people, and identifying patterns — so the team doesn't just guess.",
+        weights: [5, 3, 4, 3, 2, 2],
+        primaryDims: [0, 2], // Research, Organization
+    },
+    {
+        name: "Community Liaison",
+        why: "The bridge between your group and the broader community — builds relationships, listens to what people actually want, and makes sure no one gets left out.",
+        weights: [2, 5, 3, 4, 3, 2],
+        primaryDims: [1, 3], // Relationships, Communication
+    },
+    {
+        name: "Project Coordinator",
+        why: "Keeps everything on track — timelines, tasks, people, logistics. The person who makes sure good ideas actually get completed.",
+        weights: [3, 3, 5, 3, 3, 3],
+        primaryDims: [2], // Organization
+    },
+    {
+        name: "Grant Writer",
+        why: "Turns community needs into compelling funding proposals by combining research, clear writing, and understanding of what funders want to support.",
+        weights: [5, 2, 3, 5, 1, 4],
+        primaryDims: [0, 3, 5], // Research, Communication, Resources
+    },
+    {
+        name: "Volunteer Coordinator",
+        why: "Recruits, schedules, and supports volunteers — matching people's strengths to roles and keeping everyone engaged over time.",
+        weights: [2, 4, 5, 3, 3, 2],
+        primaryDims: [1, 2], // Relationships, Organization
+    },
+    {
+        name: "Distribution Site Lead",
+        why: "Runs the ground operation — food pantry, supply distribution, community garden. Keeps things moving, safe, and dignified for everyone.",
+        weights: [1, 3, 4, 2, 5, 3],
+        primaryDims: [4, 2], // DirectService, Organization
+    },
+    {
+        name: "Fundraiser & Donor Relations",
+        why: "Finds money, goods, and partnerships to keep programs running. Builds relationships with supporters and makes strategic asks.",
+        weights: [3, 4, 3, 4, 1, 5],
+        primaryDims: [5, 1, 3], // Resources, Relationships, Communication
+    },
+    {
+        name: "Meeting Facilitator",
+        why: "Runs productive community meetings where everyone gets heard, decisions get made, and people leave feeling like their time was respected.",
+        weights: [3, 4, 3, 5, 2, 2],
+        primaryDims: [3, 1], // Communication, Relationships
+    },
+    {
+        name: "Data & Research Analyst",
+        why: "Digs into the numbers — census data, survey results, program outcomes — and turns them into clear insights the team can use.",
+        weights: [5, 2, 3, 3, 1, 2],
+        primaryDims: [0], // Research
+    },
+    {
+        name: "Coalition Builder",
+        why: "Connects your group with other organizations, agencies, and community leaders to tackle problems that are too big for any one team.",
+        weights: [3, 5, 4, 4, 2, 3],
+        primaryDims: [1, 2, 3], // Relationships, Organization, Communication
+    },
+    {
+        name: "Communications Lead",
+        why: "Manages the newsletter, social media, and public presence — making sure the community knows what's happening and why it matters.",
+        weights: [3, 3, 3, 5, 1, 2],
+        primaryDims: [3], // Communication
+    },
+    {
+        name: "Ground Crew & Delivery",
+        why: "The hands and feet of the operation — driving deliveries, setting up events, stocking shelves, doing the physical work that makes everything else possible.",
+        weights: [1, 2, 2, 1, 5, 2],
+        primaryDims: [4], // DirectService
+    },
+    {
+        name: "Community Garden Coordinator",
+        why: "Manages a shared growing space — planning what to plant, organizing volunteer shifts, and building community around the act of growing food together.",
+        weights: [2, 3, 4, 2, 5, 3],
+        primaryDims: [4, 2], // DirectService, Organization
+    },
+    {
+        name: "Policy Advocate",
+        why: "Takes community needs to decision-makers — city council, school boards, agencies — translating ground-level reality into policy arguments.",
+        weights: [4, 3, 3, 5, 2, 3],
+        primaryDims: [3, 0], // Communication, Research
+    },
+    {
+        name: "Supply Chain Manager",
+        why: "Tracks what's coming in, what's going out, and what's running low. Keeps the logistics of donated goods and supplies running smoothly.",
+        weights: [3, 2, 5, 2, 3, 4],
+        primaryDims: [2, 5], // Organization, Resources
+    }
+];
+
+function matchRoles(ratings, prefs) {
+    if (!ratings || ratings.length < 6) return { current: [], aspirational: [] };
+    prefs = prefs || [];
+    
+    // Determine if this person is broadly strong (average >= 3.5)
+    const avg = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+    const prefBoostActive = avg >= 3.5 && prefs.length > 0;
+    
+    const scored = communityRoles.map(role => {
+        let weightedMatch = 0;
+        let maxPossible = 0;
+        let gapDims = [];
+        let strongDims = [];
+        
+        role.weights.forEach((weight, i) => {
+            const contribution = ratings[i] * weight;
+            const maxContribution = 5 * weight;
+            weightedMatch += contribution;
+            maxPossible += maxContribution;
+            
+            if (weight >= 4 && ratings[i] >= 3) strongDims.push(i);
+            if (weight >= 4 && ratings[i] <= 2) gapDims.push(i);
+        });
+        
+        let fitScore = weightedMatch / maxPossible;
+        
+        // Preference boost: if broadly strong, boost roles that align with preferred dims
+        if (prefBoostActive) {
+            const prefOverlap = role.primaryDims.filter(di => prefs.includes(di)).length;
+            const prefBonus = prefOverlap * 0.06; // up to ~12-18% boost for 2-3 overlapping prefs
+            fitScore = Math.min(1, fitScore + prefBonus);
+        }
+        
+        const primaryStrength = role.primaryDims.reduce((sum, di) => sum + ratings[di], 0) / role.primaryDims.length;
+        
+        return {
+            ...role,
+            fitScore,
+            primaryStrength,
+            strongDims,
+            gapDims,
+            prefAligned: prefs.length > 0 ? role.primaryDims.some(di => prefs.includes(di)) : false,
+            isCurrent: primaryStrength >= 3 && fitScore >= 0.55,
+            isAspirationMatch: primaryStrength < 3 && fitScore >= 0.40 && gapDims.length <= 2
+        };
+    });
+    
+    // Sort by fit score, with preference-aligned roles breaking ties
+    scored.sort((a, b) => {
+        if (Math.abs(a.fitScore - b.fitScore) < 0.02 && a.prefAligned !== b.prefAligned) {
+            return a.prefAligned ? 1 : -1; // prefer aligned
+        }
+        return b.fitScore - a.fitScore;
+    });
+    
+    const current = scored.filter(r => r.isCurrent).slice(0, 4);
+    const aspirational = scored.filter(r => r.isAspirationMatch && !r.isCurrent).slice(0, 3);
+    
+    if (current.length === 0) {
+        const topFits = scored.slice(0, 3).map(r => ({ ...r, isCurrent: false, isAspirationMatch: true }));
+        return { current: [], aspirational: topFits };
+    }
+    
+    return { current, aspirational };
+}
+
+function renderRoleRecommendations(ratings, targetEl, prefs) {
+    const { current, aspirational } = matchRoles(ratings, prefs);
+    const dimNames = capabilities.map(c => c.name.split(' ')[0]);
+    
+    let html = '';
+    
+    if (current.length > 0) {
+        html += `<h3 style="color:var(--fern); font-size:20px; margin-bottom:6px;">Roles That Fit You Now</h3>
+                 <p style="font-size:15px; color:var(--slate); margin-bottom:16px;">Based on your strengths and preferences across all six dimensions, these roles align with what you bring today.</p>
+                 <div class="role-rec-grid">`;
+        current.forEach(role => {
+            html += renderRoleRecCard(role, dimNames, 'current-fit', 'strong');
+        });
+        html += '</div>';
+    }
+    
+    if (aspirational.length > 0) {
+        html += `<h3 style="color:var(--warm); font-size:20px; margin-top:28px; margin-bottom:6px;">Roles to Grow Into</h3>
+                 <p style="font-size:15px; color:var(--slate); margin-bottom:16px;">These roles match your overall profile but need growth in one or two areas. Good targets for your development plan.</p>
+                 <div class="role-rec-grid">`;
+        aspirational.forEach(role => {
+            html += renderRoleRecCard(role, dimNames, 'aspirational', 'grow');
+        });
+        html += '</div>';
+    }
+    
+    if (current.length === 0 && aspirational.length === 0) {
+        html += `<p style="font-size:15px; color:var(--slate);">Complete the self-assessment to see role recommendations based on your profile.</p>`;
+    }
+    
+    document.getElementById(targetEl).innerHTML = html;
+}
+
+function renderRoleRecCard(role, dimNames, cardClass, matchClass) {
+    const dims = role.primaryDims.map(di => {
+        const userLevel = role.strongDims && role.strongDims.includes(di) ? 'strong' : 
+                          role.gapDims && role.gapDims.includes(di) ? 'gap' : 'neutral';
+        return `<span class="dim-pill ${userLevel}">${dimNames[di]}</span>`;
+    }).join('');
+    
+    const pct = Math.round(role.fitScore * 100);
+    const prefNote = role.prefAligned ? ' · <span style="color:var(--warm);">★ aligns with your preferences</span>' : '';
+    return `
+        <div class="role-rec-card ${cardClass}">
+            <div class="role-rec-title">${role.name}</div>
+            <div class="role-rec-match ${matchClass}">${pct}% profile match${prefNote}</div>
+            <div class="role-rec-why">${role.why}</div>
+            <div class="role-rec-dims">${dims}</div>
+        </div>
+    `;
+}
+
+function renderRolesCatalog() {
+    const dimNames = capabilities.map(c => c.name.split(' ')[0]);
+    const catalog = document.getElementById('roles-catalog');
+    
+    catalog.innerHTML = communityRoles.map(role => {
+        const dims = role.weights.map((w, i) => ({name: dimNames[i], weight: w, index: i}))
+            .sort((a, b) => b.weight - a.weight);
+        const primary = dims.filter(d => d.weight >= 4);
+        const secondary = dims.filter(d => d.weight === 3);
+        
+        const dimPills = primary.map(d => `<span class="cdim cdim-primary">${d.name} ●●${d.weight === 5 ? '●' : ''}</span>`).join('') +
+                         secondary.map(d => `<span class="cdim cdim-secondary">${d.name} ●●</span>`).join('');
+        
+        return `
+            <div class="catalog-card">
+                <h4>${role.name}</h4>
+                <div class="catalog-why">${role.why}</div>
+                <div class="catalog-needs">Key dimensions:</div>
+                <div class="catalog-dims">${dimPills}</div>
+            </div>
+        `;
+    }).join('');
+    
+    // If user has taken assessment, show their matches at top
+    const userMatch = document.getElementById('roles-user-match');
+    if (systemData.userAssessment) {
+        renderRoleRecommendations(systemData.userAssessment.ratings, 'roles-user-match', systemData.userAssessment.prefs);
+        userMatch.innerHTML = `
+            <div style="background:var(--teal-bg-light); padding:24px; border-radius:12px; margin-bottom:24px;">
+                <h3 style="color:var(--teal-dark); font-size:20px; margin-bottom:8px;">Your Role Matches</h3>
+                <p style="font-size:15px; color:var(--slate); margin-bottom:16px;">Based on your self-assessment, here are the roles that fit your profile:</p>
+                ${userMatch.innerHTML}
+            </div>
+        `;
+    }
+}
+
+// Pre-populated sample community members
+const sampleMembers = [
+    { name: 'Carmen Reyes', group: 'Riverside', ratings: [3, 4, 3, 4, 2, 3], prefs: [1, 3] },
+    { name: 'David Kim', group: 'Riverside', ratings: [4, 3, 5, 3, 3, 2], prefs: [0, 2] },
+    { name: 'Rebecca Johnson', group: 'Riverside', ratings: [2, 5, 3, 4, 4, 3], prefs: [1, 4] },
+    { name: 'Marcus Thompson', group: 'Riverside', ratings: [3, 3, 2, 2, 5, 4], prefs: [4, 5] },
+    { name: 'Linda Okafor', group: 'Riverside', ratings: [5, 3, 4, 3, 2, 4], prefs: [0, 5] },
+    
+    { name: 'James Patel', group: 'Hilltop', ratings: [4, 2, 4, 3, 3, 5], prefs: [5, 2] },
+    { name: 'Sarah Mitchell', group: 'Hilltop', ratings: [2, 4, 3, 5, 2, 3], prefs: [3, 1] },
+    { name: 'Roberto Diaz', group: 'Hilltop', ratings: [3, 3, 2, 2, 5, 3], prefs: [4, 5] },
+    { name: 'Helen Park', group: 'Hilltop', ratings: [3, 5, 4, 3, 3, 2], prefs: [1, 2] },
+    { name: 'Thomas Wright', group: 'Hilltop', ratings: [4, 2, 3, 4, 4, 4], prefs: [0, 4] },
+    
+    { name: 'Fatima Hassan', group: 'Downtown', ratings: [5, 4, 3, 3, 2, 4], prefs: [0, 1] },
+    { name: 'Derek Chen', group: 'Downtown', ratings: [3, 2, 5, 2, 4, 3], prefs: [2, 4] },
+    { name: 'Maria Santos', group: 'Downtown', ratings: [2, 5, 3, 4, 3, 2], prefs: [1, 3] },
+    { name: 'William Brown', group: 'Downtown', ratings: [3, 3, 4, 3, 5, 3], prefs: [4, 2] },
+    { name: 'Nina Volkov', group: 'Downtown', ratings: [4, 3, 2, 5, 3, 5], prefs: [3, 5] },
+    
+    { name: 'Andre Williams', group: 'Eastside', ratings: [3, 4, 3, 2, 4, 3], prefs: [1, 4] },
+    { name: 'Priya Sharma', group: 'Eastside', ratings: [4, 3, 4, 4, 2, 5], prefs: [5, 0] },
+    { name: 'Grace Obi', group: 'Eastside', ratings: [2, 5, 2, 3, 5, 2], prefs: [1, 4] },
+    { name: 'Michael Torres', group: 'Eastside', ratings: [3, 2, 5, 3, 3, 4], prefs: [2, 5] },
+    { name: 'Keiko Tanaka', group: 'Eastside', ratings: [5, 3, 3, 5, 2, 3], prefs: [0, 3] }
+];
+
+// System data
+let systemData = { members: [...sampleMembers], userAssessment: null };
+
+// ==================== NAVIGATION ====================
+function showSection(section) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('section-' + section).classList.add('active');
+    
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const navMap = { 'welcome': 0, 'self-assessment': 1, 'team-view': 2, 'roles': 3, 'dev-plan': 4 };
+    document.querySelectorAll('.nav-btn')[navMap[section]].classList.add('active');
+    
+    if (section === 'team-view') renderTeamView();
+    if (section === 'roles') renderRolesCatalog();
+    if (section === 'dev-plan') {
+        populateDevPlanDropdowns();
+        renderDevPlanRoleContext();
+    }
+    
+    window.scrollTo(0, 0);
+}
+
+// ==================== SELF-ASSESSMENT ====================
+let currentCapIndex = 0;
+let responses = {};
+
+function startSelfAssessment() {
+    const name = document.getElementById('sa-name').value.trim();
+    const group = document.getElementById('sa-group').value;
+    
+    if (!name || !group) {
+        alert('Please enter your name and select a group.');
+        return;
+    }
+    
+    // Check for saved progress
+    const saved = localStorage.getItem('ccaProgress');
+    if (saved) {
+        const progress = JSON.parse(saved);
+        if (progress.name === name) {
+            if (confirm('Found saved progress for ' + name + '. Resume where you left off?')) {
+                responses = progress.responses;
+                currentCapIndex = progress.currentIndex;
+                document.getElementById('sa-intro').style.display = 'none';
+                document.getElementById('sa-form').style.display = 'block';
+                displayCapability(currentCapIndex);
+                return;
+            }
+        }
+    }
+    
+    responses = {};
+    currentCapIndex = 0;
+    document.getElementById('sa-intro').style.display = 'none';
+    document.getElementById('sa-form').style.display = 'block';
+    displayCapability(0);
+}
+
+function displayCapability(index) {
+    currentCapIndex = index;
+    const cap = capabilities[index];
+    
+    let html = `
+        <h3 style="color:var(--teal-dark); margin-bottom:6px; font-size:22px;">${index + 1}. ${cap.name}</h3>
+        <p style="color:var(--slate); font-style:italic; margin-bottom:20px; font-size:16px;">${cap.description}</p>
+    `;
+    
+    for (let level = 1; level <= 5; level++) {
+        const selected = responses[index] === level;
+        html += `
+            <div class="rating-option ${selected ? 'selected' : ''}" onclick="selectRating(${index}, ${level})">
+                <input type="radio" name="cap-${index}" value="${level}" ${selected ? 'checked' : ''}>
+                <div style="flex:1; cursor:pointer;">
+                    <div class="level-badge">Level ${level} · ${levelLabels[level]}</div>
+                    <div class="level-text">${cap.levels[level]}</div>
+                </div>
+            </div>
+        `;
+    }
+    
+    document.getElementById('sa-capability-container').innerHTML = html;
+    updateProgress();
+    updateNavButtons();
+}
+
+function selectRating(capIndex, level) {
+    responses[capIndex] = level;
+    
+    // Save progress
+    localStorage.setItem('ccaProgress', JSON.stringify({
+        name: document.getElementById('sa-name').value.trim(),
+        group: document.getElementById('sa-group').value,
+        responses: responses,
+        currentIndex: capIndex
+    }));
+    
+    displayCapability(capIndex);
+}
+
+function updateProgress() {
+    const completed = Object.keys(responses).length;
+    const pct = (completed / capabilities.length) * 100;
+    document.getElementById('sa-progress-bar').style.width = pct + '%';
+    document.getElementById('sa-progress-text').textContent = `Dimension ${currentCapIndex + 1} of ${capabilities.length} (${completed} completed)`;
+}
+
+function updateNavButtons() {
+    document.getElementById('sa-prev-btn').disabled = currentCapIndex === 0;
+    const nextBtn = document.getElementById('sa-next-btn');
+    
+    if (currentCapIndex === capabilities.length - 1) {
+        nextBtn.textContent = responses[currentCapIndex] ? 'Choose Preferences →' : 'Choose Preferences';
+        nextBtn.disabled = !responses[currentCapIndex];
+    } else {
+        nextBtn.textContent = 'Next →';
+        nextBtn.disabled = !responses[currentCapIndex];
+    }
+}
+
+function prevCapability() {
+    if (currentCapIndex > 0) displayCapability(currentCapIndex - 1);
+}
+
+function nextCapability() {
+    if (currentCapIndex < capabilities.length - 1) {
+        displayCapability(currentCapIndex + 1);
+    } else {
+        showPreferenceStep();
+    }
+}
+
+function showPreferenceStep() {
+    document.getElementById('sa-form').style.display = 'none';
+    document.getElementById('sa-preferences').style.display = 'block';
+    
+    const container = document.getElementById('sa-pref-checkboxes');
+    container.innerHTML = capabilities.map((cap, i) => {
+        const level = responses[i];
+        const levelTag = level ? ` <span style="font-size:12px; color:var(--teal);">(Level ${level} · ${levelLabels[level]})</span>` : '';
+        return `
+            <div class="pref-option" id="pref-opt-${i}" onclick="togglePref(${i})">
+                <input type="checkbox" id="pref-cb-${i}" value="${i}" onclick="event.stopPropagation()">
+                <div>
+                    <div class="pref-label">${cap.name}${levelTag}</div>
+                    <div class="pref-desc">${cap.description}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function togglePref(index) {
+    const cb = document.getElementById('pref-cb-' + index);
+    const opt = document.getElementById('pref-opt-' + index);
+    const allChecked = document.querySelectorAll('#sa-pref-checkboxes input:checked');
+    
+    // If trying to check and already at 3, block it
+    if (!cb.checked && allChecked.length >= 3) {
+        return;
+    }
+    
+    cb.checked = !cb.checked;
+    opt.classList.toggle('checked', cb.checked);
+}
+
+function backToLastRating() {
+    document.getElementById('sa-preferences').style.display = 'none';
+    document.getElementById('sa-form').style.display = 'block';
+    displayCapability(capabilities.length - 1);
+}
+
+function completeWithPreferences() {
+    // Gather preferences
+    const prefChecks = document.querySelectorAll('#sa-pref-checkboxes input:checked');
+    const prefs = Array.from(prefChecks).map(cb => parseInt(cb.value));
+    
+    const name = document.getElementById('sa-name').value.trim();
+    const group = document.getElementById('sa-group').value;
+    
+    const ratingsArray = [];
+    for (let i = 0; i < capabilities.length; i++) ratingsArray.push(responses[i]);
+    
+    systemData.userAssessment = { name, group, ratings: ratingsArray, prefs, date: new Date().toISOString() };
+    
+    if (!systemData.members.find(m => m.name === name)) {
+        systemData.members.push({ name, group, ratings: ratingsArray, prefs });
+    } else {
+        const existing = systemData.members.find(m => m.name === name);
+        existing.ratings = ratingsArray;
+        existing.prefs = prefs;
+    }
+    
+    localStorage.setItem('ccaData', JSON.stringify(systemData));
+    localStorage.removeItem('ccaProgress');
+    
+    document.getElementById('sa-preferences').style.display = 'none';
+    showResults(ratingsArray, prefs);
+}
+
+function showResults(ratings, prefs) {
+    let html = '';
+    capabilities.forEach((cap, i) => {
+        const barWidth = (ratings[i] / 5) * 100;
+        const isPref = prefs && prefs.includes(i);
+        const prefTag = isPref ? ' <span class="pref-badge">★ preferred</span>' : '';
+        html += `
+            <tr>
+                <td style="font-weight:500;">${cap.name}${prefTag}</td>
+                <td style="text-align:center;">
+                    <div class="level-bar-container">
+                        <div class="level-bar" style="width:${barWidth}%; background:${levelColors[ratings[i]]};">${ratings[i]}</div>
+                    </div>
+                </td>
+                <td style="text-align:center; font-size:13px; color:var(--teal);">${levelLabels[ratings[i]]}</td>
+            </tr>
+        `;
+    });
+    
+    document.getElementById('sa-results-tbody').innerHTML = html;
+    document.getElementById('sa-form').style.display = 'none';
+    document.getElementById('sa-results').style.display = 'block';
+    
+    // Render role recommendations with preferences
+    renderRoleRecommendations(ratings, 'sa-role-recommendations', prefs);
+}
+
+function resetSelfAssessment() {
+    responses = {};
+    currentCapIndex = 0;
+    document.getElementById('sa-name').value = '';
+    document.getElementById('sa-group').value = '';
+    document.getElementById('sa-intro').style.display = 'block';
+    document.getElementById('sa-form').style.display = 'none';
+    document.getElementById('sa-preferences').style.display = 'none';
+    document.getElementById('sa-results').style.display = 'none';
+}
+
+// ==================== TEAM VIEW ====================
+function renderTeamView() {
+    const filter = document.getElementById('team-filter').value;
+    const members = filter === 'all' ? systemData.members : systemData.members.filter(m => m.group === filter);
+    
+    // Member cards
+    const grid = document.getElementById('team-grid');
+    grid.innerHTML = members.filter(m => m.ratings).map((member, mi) => {
+        const bars = capabilities.map((cap, ci) => {
+            const w = (member.ratings[ci] / 5) * 100;
+            return `
+                <div class="mini-bar-row">
+                    <div class="mini-bar-label">${cap.name.split(' ')[0]}</div>
+                    <div class="mini-bar"><div class="mini-bar-fill" style="width:${w}%; background:${levelColors[member.ratings[ci]]};"></div></div>
+                </div>
+            `;
+        }).join('');
+        
+        // Get top role fit
+        const { current } = matchRoles(member.ratings, member.prefs);
+        const topRole = current.length > 0 ? current[0].name : '';
+        const roleBadge = topRole ? `<span class="badge badge-fern" style="margin-left:8px;">${topRole}</span>` : '';
+        
+        // Scale ruler
+        const scaleRuler = `<div class="card-scale-ruler">
+            <div class="card-scale-spacer"></div>
+            <div class="card-scale-track">
+                <div class="card-scale-mark" style="left:20%;"><div class="card-scale-tick"></div>1</div>
+                <div class="card-scale-mark" style="left:40%;"><div class="card-scale-tick"></div>2</div>
+                <div class="card-scale-mark" style="left:60%;"><div class="card-scale-tick"></div>3</div>
+                <div class="card-scale-mark" style="left:80%;"><div class="card-scale-tick"></div>4</div>
+                <div class="card-scale-mark" style="left:100%;"><div class="card-scale-tick"></div>5</div>
+            </div>
+        </div>`;
+        
+        // Preferences
+        const prefNames = member.prefs && member.prefs.length > 0
+            ? member.prefs.map(pi => capabilities[pi].name).join(', ')
+            : '';
+        const prefLine = prefNames ? `<div class="card-prefs">★ Prefers: ${prefNames}</div>` : '';
+        
+        return `
+            <div class="member-card" onclick="showMemberDetail('${member.name}')">
+                <div class="member-name">${member.name}</div>
+                <div class="member-group"><span class="badge badge-teal">${member.group}</span>${roleBadge}</div>
+                <div class="mini-bars">${bars}</div>
+                ${scaleRuler}
+                ${prefLine}
+            </div>
+        `;
+    }).join('');
+    
+    document.getElementById('member-detail').style.display = 'none';
+}
+
+function showMemberDetail(name) {
+    const member = systemData.members.find(m => m.name === name);
+    if (!member || !member.ratings) return;
+    
+    let html = `
+        <h3 style="color:var(--teal-dark); margin-bottom:4px;">${member.name}</h3>
+        <p style="color:var(--slate); margin-bottom:20px;"><span class="badge badge-teal">${member.group}</span></p>
+    `;
+    
+    // Show preferences
+    if (member.prefs && member.prefs.length > 0) {
+        const prefNames = member.prefs.map(pi => capabilities[pi].name);
+        html += `<p style="font-size:15px; color:var(--slate); margin-bottom:20px;"><strong style="color:var(--teal-dark);">Prefers:</strong> ${prefNames.map(n => `<span class="pref-badge" style="margin-left:4px;">${n}</span>`).join(' ')}</p>`;
+    }
+    
+    html += `
+        <table class="results-table">
+            <thead><tr><th>Dimension</th><th style="text-align:center;">Level</th><th style="text-align:center;">Stage</th><th>What This Looks Like</th></tr></thead>
+            <tbody>
+    `;
+    
+    capabilities.forEach((cap, i) => {
+        const level = member.ratings[i];
+        const isPref = member.prefs && member.prefs.includes(i);
+        const prefTag = isPref ? ' <span class="pref-badge">★ preferred</span>' : '';
+        html += `
+            <tr>
+                <td style="font-weight:500;">${cap.name}${prefTag}</td>
+                <td style="text-align:center;"><div class="level-bar" style="width:60px; background:${levelColors[level]}; display:inline-flex;">${level}</div></td>
+                <td style="text-align:center; font-size:13px; color:var(--teal);">${levelLabels[level]}</td>
+                <td style="font-size:14px; color:var(--slate); line-height:1.5;">${cap.levels[level]}</td>
+            </tr>
+        `;
+    });
+    
+    html += '</tbody></table>';
+    
+    // Strengths and growth areas
+    const sorted = member.ratings.map((r, i) => ({ dim: capabilities[i].name, level: r, index: i })).sort((a, b) => b.level - a.level);
+    const strengths = sorted.slice(0, 2);
+    const growth = sorted.slice(-2).reverse();
+    
+    html += `
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px;">
+            <div style="background:var(--fern-light); padding:20px; border-radius:10px;">
+                <h4 style="color:var(--fern); margin-bottom:8px; font-size:16px;">Strongest Areas</h4>
+                ${strengths.map(s => `<p style="font-size:15px; margin:4px 0;"><strong>${s.dim}</strong> — Level ${s.level} (${levelLabels[s.level]})</p>`).join('')}
+            </div>
+            <div style="background:var(--warm-light); padding:20px; border-radius:10px;">
+                <h4 style="color:var(--warm); margin-bottom:8px; font-size:16px;">Growth Opportunities</h4>
+                ${growth.map(g => `<p style="font-size:15px; margin:4px 0;"><strong>${g.dim}</strong> — Level ${g.level} (${levelLabels[g.level]})</p>`).join('')}
+            </div>
+        </div>
+    `;
+    
+    // Add role recommendations for this member
+    const { current: memberCurrent, aspirational: memberAspi } = matchRoles(member.ratings, member.prefs);
+    if (memberCurrent.length > 0 || memberAspi.length > 0) {
+        html += `<div style="margin-top:24px; padding-top:20px; border-top:2px solid #e8edeb;">`;
+        html += `<h4 style="color:var(--teal-dark); font-size:18px; margin-bottom:12px;">Role Matches for ${member.name}</h4>`;
+        html += `<p style="font-size:14px; color:var(--slate); margin-bottom:12px;">Based on their combination of strengths and preferences:</p>`;
+        if (memberCurrent.length > 0) {
+            html += `<p style="font-size:14px; color:var(--fern); font-weight:600; margin-bottom:8px;">Current fit:</p>`;
+            html += memberCurrent.map(r => `<p style="font-size:15px; color:var(--slate); margin:4px 0;">● <strong>${r.name}</strong> — ${Math.round(r.fitScore * 100)}% match</p>`).join('');
+        }
+        if (memberAspi.length > 0) {
+            html += `<p style="font-size:14px; color:var(--warm); font-weight:600; margin-top:12px; margin-bottom:8px;">Could grow into:</p>`;
+            html += memberAspi.map(r => `<p style="font-size:15px; color:var(--slate); margin:4px 0;">○ <strong>${r.name}</strong> — ${Math.round(r.fitScore * 100)}% match</p>`).join('');
+        }
+        html += `</div>`;
+    }
+    
+    document.getElementById('member-detail-content').innerHTML = html;
+    document.getElementById('member-detail').style.display = 'block';
+    document.getElementById('member-detail').scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideMemberDetail() {
+    document.getElementById('member-detail').style.display = 'none';
+}
+
+// ==================== DEVELOPMENT PLAN ====================
+function populateDevPlanDropdowns() {
+    ['dev-dimension-1', 'dev-dimension-2'].forEach(id => {
+        const select = document.getElementById(id);
+        const currentVal = select.value;
+        select.innerHTML = '<option value="">-- Choose a dimension --</option>';
+        capabilities.forEach((cap, i) => {
+            const userLevel = systemData.userAssessment ? systemData.userAssessment.ratings[i] : null;
+            const levelInfo = userLevel ? ` (currently ${levelLabels[userLevel]})` : '';
+            select.innerHTML += `<option value="${i}">${cap.name}${levelInfo}</option>`;
+        });
+        if (currentVal) select.value = currentVal;
+    });
+    
+    // Load saved plan
+    const saved = localStorage.getItem('ccaDevPlan');
+    if (saved) {
+        const plan = JSON.parse(saved);
+        if (plan.dim1) document.getElementById('dev-dimension-1').value = plan.dim1;
+        if (plan.current1) document.getElementById('dev-current-1').value = plan.current1;
+        if (plan.goal1) document.getElementById('dev-goal-1').value = plan.goal1;
+        if (plan.action1) document.getElementById('dev-action-1').value = plan.action1;
+        if (plan.askWho1) document.getElementById('dev-ask-who-1').value = plan.askWho1;
+        if (plan.askRec1) document.getElementById('dev-ask-rec-1').value = plan.askRec1;
+        if (plan.hasArea2) {
+            toggleGrowthArea2();
+            if (plan.dim2) document.getElementById('dev-dimension-2').value = plan.dim2;
+            if (plan.current2) document.getElementById('dev-current-2').value = plan.current2;
+            if (plan.goal2) document.getElementById('dev-goal-2').value = plan.goal2;
+            if (plan.action2) document.getElementById('dev-action-2').value = plan.action2;
+            if (plan.askWho2) document.getElementById('dev-ask-who-2').value = plan.askWho2;
+            if (plan.askRec2) document.getElementById('dev-ask-rec-2').value = plan.askRec2;
+        }
+    }
+}
+
+function toggleGrowthArea2() {
+    const area = document.getElementById('growth-area-2');
+    const btn = document.getElementById('add-growth-btn');
+    if (area.style.display === 'none') {
+        area.style.display = 'block';
+        btn.textContent = '− Remove second growth area';
+    } else {
+        area.style.display = 'none';
+        btn.textContent = '+ Add a second growth area';
+    }
+}
+
+function gatherPlanData() {
+    const hasArea2 = document.getElementById('growth-area-2').style.display !== 'none';
+    const userName = systemData.userAssessment ? systemData.userAssessment.name : document.getElementById('sa-name').value.trim() || 'Community Member';
+    
+    const dim1Idx = document.getElementById('dev-dimension-1').value;
+    const dim1Name = dim1Idx !== '' ? capabilities[dim1Idx].name : '';
+    
+    const data = {
+        userName,
+        date: new Date().toLocaleDateString(),
+        dim1: dim1Idx,
+        dim1Name,
+        current1: document.getElementById('dev-current-1').value,
+        goal1: document.getElementById('dev-goal-1').value,
+        action1: document.getElementById('dev-action-1').value,
+        askWho1: document.getElementById('dev-ask-who-1').value,
+        askRec1: document.getElementById('dev-ask-rec-1').value,
+        hasArea2
+    };
+    
+    if (hasArea2) {
+        const dim2Idx = document.getElementById('dev-dimension-2').value;
+        data.dim2 = dim2Idx;
+        data.dim2Name = dim2Idx !== '' ? capabilities[dim2Idx].name : '';
+        data.current2 = document.getElementById('dev-current-2').value;
+        data.goal2 = document.getElementById('dev-goal-2').value;
+        data.action2 = document.getElementById('dev-action-2').value;
+        data.askWho2 = document.getElementById('dev-ask-who-2').value;
+        data.askRec2 = document.getElementById('dev-ask-rec-2').value;
+    }
+    
+    return data;
+}
+
+function renderDevPlanRoleContext() {
+    const el = document.getElementById('dev-plan-role-context');
+    if (!systemData.userAssessment) {
+        el.innerHTML = `<div style="background:var(--teal-bg-light); padding:24px; border-radius:12px;">
+            <p style="font-size:16px; color:var(--slate);">Complete the self-assessment to see which community roles match your profile and which dimensions to develop for roles you're interested in.</p>
+        </div>`;
+        return;
+    }
+    
+    const { current, aspirational } = matchRoles(systemData.userAssessment.ratings, systemData.userAssessment.prefs);
+    const dimNames = capabilities.map(c => c.name);
+    
+    let html = `<h3 style="color:var(--teal-dark); font-size:20px; margin-bottom:12px;">Your Roles & What to Develop</h3>`;
+    html += `<p style="font-size:15px; color:var(--slate); margin-bottom:16px;">Use this to connect your growth areas to roles you want to fill. If an aspirational role needs a dimension you scored lower on, that's a natural focus for your plan above.</p>`;
+    
+    if (current.length > 0) {
+        html += `<div style="margin-bottom:16px;">`;
+        html += `<p style="font-size:14px; font-weight:600; color:var(--fern); margin-bottom:8px;">You're ready for:</p>`;
+        current.forEach(r => {
+            html += `<p style="font-size:15px; color:var(--slate); margin:6px 0;">● <strong>${r.name}</strong> (${Math.round(r.fitScore * 100)}%) — ${r.why.split('—')[0].trim()}</p>`;
+        });
+        html += `</div>`;
+    }
+    
+    if (aspirational.length > 0) {
+        html += `<div style="margin-bottom:16px;">`;
+        html += `<p style="font-size:14px; font-weight:600; color:var(--warm); margin-bottom:8px;">With development, you could take on:</p>`;
+        aspirational.forEach(r => {
+            const gapNames = r.gapDims.map(di => dimNames[di]).join(' and ');
+            const gapNote = r.gapDims.length > 0 ? ` → Develop: ${gapNames}` : '';
+            html += `<p style="font-size:15px; color:var(--slate); margin:6px 0;">○ <strong>${r.name}</strong> (${Math.round(r.fitScore * 100)}%)${gapNote}</p>`;
+        });
+        html += `</div>`;
+    }
+    
+    el.innerHTML = html;
+}
+
+function savePlanProgress() {
+    const data = gatherPlanData();
+    localStorage.setItem('ccaDevPlan', JSON.stringify(data));
+    alert('Progress saved! You can close this page and come back later.');
+}
+
+function generatePlanHTML(data) {
+    // Get role matches if assessment exists
+    let roleSection = '';
+    if (systemData.userAssessment) {
+        const { current, aspirational } = matchRoles(systemData.userAssessment.ratings, systemData.userAssessment.prefs);
+        if (current.length > 0 || aspirational.length > 0) {
+            roleSection = `<h2>My Role Matches</h2>`;
+            if (current.length > 0) {
+                roleSection += `<div class="field-label" style="color:#5B7E5F;">Ready for now:</div>`;
+                current.forEach(r => {
+                    roleSection += `<div class="field-value"><strong>${r.name}</strong> (${Math.round(r.fitScore * 100)}% match) — ${r.why}</div>`;
+                });
+            }
+            if (aspirational.length > 0) {
+                roleSection += `<div class="field-label" style="color:#C07844; margin-top:12px;">Growing toward:</div>`;
+                aspirational.forEach(r => {
+                    roleSection += `<div class="field-value"><strong>${r.name}</strong> (${Math.round(r.fitScore * 100)}% match) — ${r.why}</div>`;
+                });
+            }
+        }
+    }
+    
+    let html = `
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Development Plan - ${data.userName}</title>
+<style>
+    body { font-family: Georgia, serif; max-width: 700px; margin: 40px auto; padding: 20px; color: #2d3a36; line-height: 1.7; }
+    h1 { color: #4A6E80; font-size: 24px; border-bottom: 2px solid #4A6E80; padding-bottom: 8px; }
+    h2 { color: #3A5A6A; font-size: 18px; margin-top: 28px; }
+    .meta { color: #6B6560; font-size: 14px; margin-bottom: 24px; }
+    .field-label { font-weight: bold; color: #4A6E80; margin-top: 16px; margin-bottom: 4px; }
+    .field-value { padding: 8px 0; border-bottom: 1px solid #e8edeb; }
+    .teammate-box { background: #f4f7f6; padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 3px solid #4A6E80; }
+    .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e8edeb; font-size: 13px; color: #6B6560; }
+    @media print { body { margin: 20px; } }
+</style></head><body>
+<h1>My Development Plan</h1>
+<div class="meta">${data.userName} · ${data.date}</div>
+
+<h2>Growth Area 1: ${data.dim1Name || '(not selected)'}</h2>
+<div class="field-label">Where I am now:</div>
+<div class="field-value">${data.current1 || '—'}</div>
+<div class="field-label">Where I'd like to be:</div>
+<div class="field-value">${data.goal1 || '—'}</div>
+<div class="field-label">One thing I can do this month:</div>
+<div class="field-value">${data.action1 || '—'}</div>
+<div class="teammate-box">
+    <div class="field-label">Teammate to learn from: ${data.askWho1 || '—'}</div>
+    <div class="field-label">What they recommended:</div>
+    <div class="field-value">${data.askRec1 || '(not yet filled in)'}</div>
+</div>`;
+
+    if (data.hasArea2) {
+        html += `
+<h2>Growth Area 2: ${data.dim2Name || '(not selected)'}</h2>
+<div class="field-label">Where I am now:</div>
+<div class="field-value">${data.current2 || '—'}</div>
+<div class="field-label">Where I'd like to be:</div>
+<div class="field-value">${data.goal2 || '—'}</div>
+<div class="field-label">One thing I can do this month:</div>
+<div class="field-value">${data.action2 || '—'}</div>
+<div class="teammate-box">
+    <div class="field-label">Teammate to learn from: ${data.askWho2 || '—'}</div>
+    <div class="field-label">What they recommended:</div>
+    <div class="field-value">${data.askRec2 || '(not yet filled in)'}</div>
+</div>`;
+    }
+
+    html += `
+<div class="footer">
+${roleSection}
+<h2>Next Step: Before You Build</h2>
+<p>Now that your group knows what you each bring, take the next step together. <strong>Before You Build</strong> is a 5-week course that walks your team through assessing community food insecurity and designing a response — using the exact strengths you just identified. Each week includes a Zoom discussion where your team invites a practitioner already working on food insecurity to react to your findings, share what they've learned, and help keep your efforts grounded in what the community actually needs.</p>
+
+<hr style="margin-top:32px; border:none; border-top:1px solid #e8edeb;">
+<p style="font-size:13px; color:#6B6560; margin-top:16px;">Generated from the Community Contribution Capability Assessment<br>Designed by Suzanne Estes, Learning Experience Architect</p>
+</div>
+</body></html>`;
+    
+    return html;
+}
+
+function downloadPlan() {
+    const data = gatherPlanData();
+    const html = generatePlanHTML(data);
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `development-plan-${data.userName.replace(/\s+/g, '-').toLowerCase()}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function emailPlan() {
+    const data = gatherPlanData();
+    let body = `MY DEVELOPMENT PLAN\n${data.userName} · ${data.date}\n\n`;
+    
+    // Include role matches
+    if (systemData.userAssessment) {
+        const { current, aspirational } = matchRoles(systemData.userAssessment.ratings, systemData.userAssessment.prefs);
+        if (current.length > 0) {
+            body += `ROLES THAT FIT ME NOW:\n`;
+            current.forEach(r => { body += `● ${r.name} (${Math.round(r.fitScore * 100)}% match)\n`; });
+            body += `\n`;
+        }
+        if (aspirational.length > 0) {
+            body += `ROLES TO GROW INTO:\n`;
+            aspirational.forEach(r => { body += `○ ${r.name} (${Math.round(r.fitScore * 100)}% match)\n`; });
+            body += `\n`;
+        }
+    }
+    
+    body += `GROWTH AREA 1: ${data.dim1Name || '(not selected)'}\n`;
+    body += `Where I am now: ${data.current1 || '—'}\n`;
+    body += `Where I'd like to be: ${data.goal1 || '—'}\n`;
+    body += `One thing this month: ${data.action1 || '—'}\n`;
+    body += `Teammate to learn from: ${data.askWho1 || '—'}\n`;
+    body += `What they recommended: ${data.askRec1 || '(not yet)'}\n`;
+    
+    if (data.hasArea2) {
+        body += `\nGROWTH AREA 2: ${data.dim2Name || '(not selected)'}\n`;
+        body += `Where I am now: ${data.current2 || '—'}\n`;
+        body += `Where I'd like to be: ${data.goal2 || '—'}\n`;
+        body += `One thing this month: ${data.action2 || '—'}\n`;
+        body += `Teammate to learn from: ${data.askWho2 || '—'}\n`;
+        body += `What they recommended: ${data.askRec2 || '(not yet)'}\n`;
+    }
+    
+    body += `\nNEXT STEP: BEFORE YOU BUILD\n`;
+    body += `Now that your group knows what you each bring, take the next step together. Before You Build is a 5-week course that walks your team through assessing community food insecurity and designing a response. Each week includes a Zoom discussion with a practitioner already doing this work in your community.\n`;
+    
+    const subject = encodeURIComponent('My Development Plan - Community Contribution Assessment');
+    const mailBody = encodeURIComponent(body);
+    window.location.href = `mailto:?subject=${subject}&body=${mailBody}`;
+}
+
+// ==================== INIT ====================
+function init() {
+    const saved = localStorage.getItem('ccaData');
+    if (saved) {
+        const loaded = JSON.parse(saved);
+        if (loaded.members) systemData.members = loaded.members;
+        if (loaded.userAssessment) systemData.userAssessment = loaded.userAssessment;
+    }
+}
+
+init();
+</script>
+</body>
+</html>
