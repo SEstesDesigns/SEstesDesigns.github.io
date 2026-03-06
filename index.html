@@ -350,29 +350,28 @@
             .modal { padding: 28px 24px; }
         }
 
-       @media (max-width: 480px) {
-    .journey-track { flex-direction: column; }
+      @media (max-width: 480px) {
+    .journey-track { 
+        flex-direction: column; 
+        align-items: center;
+    }
     .journey-line { width: 4px; height: 16px; }
     .additional-section { flex-direction: column; }
     .journey-circle {
         width: 100px;
         height: 100px;
-        flex-direction: column;
-        overflow: visible;
     }
     .journey-circle span { font-size: 14px; }
     .journey-circle .hover-desc {
         display: block;
-        position: absolute;
-        top: 110px;
-        bottom: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 250px;
-        background: transparent;
+        position: static;
+        transform: none;
+        width: 260px;
+        margin: 10px auto;
+        background: var(--sage-bg);
         color: var(--teal-deep);
         box-shadow: none;
-        padding: 4px 10px;
+        padding: 0 10px;
         font-size: 12px;
     }
 }
