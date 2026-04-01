@@ -618,7 +618,7 @@
         <div class="card">
             <h2>What do you bring to your community?</h2>
             <p>Your group has chosen <strong>hunger and food insecurity</strong> as your area of focus. This assessment helps you identify the strengths and preferences you each bring to that work — so you can figure out who does what, where the gaps are, and how to grow together.</p>
-            <p class="mt-12" style="background:white; border-left:4px solid var(--teal-dark); padding:14px 18px; border-radius:0 8px 8px 0; color:var(--bark); line-height:1.6;"><strong style="color:var(--teal-dark);">An important starting point:</strong> People in your community are already working on hunger and food insecurity. Before you interpret your results, connect with them. Their experience will shape how you read your strengths, which roles actually matter, and where your team can contribute without duplicating what already exists. This assessment enhances those conversations — it doesn't replace them.</p>
+            <p class="mt-12" style="background:white; border-left:4px solid var(--warm); padding:14px 18px; border-radius:0 8px 8px 0; color:var(--bark); line-height:1.6;"><strong style="color:var(--warm);">An important starting point:</strong> People in your community are already working on hunger and food insecurity. Before you interpret your results, connect with them. Their experience will shape how you read your strengths, which roles actually matter, and where your team can contribute without duplicating what already exists. This assessment enhances those conversations — it doesn't replace them.</p>
             <p class="mt-12">You'll rate yourself across six dimensions of community contribution, then tell us which areas you most enjoy. Every team needs a mix — no single person needs to be strong in all six.</p>
             
             <div class="role-cards">
@@ -644,11 +644,11 @@
             
             <div style="max-width: 400px; margin: 24px auto 0;">
                 <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" id="sa-name" placeholder="Go ahead, try it out">
+                    <label for="sa-name">Your Name</label>
+                    <input type="text" id="sa-name" placeholder="Enter your name">
                 </div>
                 <div class="form-group">
-                    <label>Your Neighborhood Group</label>
+                    <label for="sa-group">Your Neighborhood Group</label>
                     <select id="sa-group">
                         <option value="">-- Select your group --</option>
                         <option value="Riverside">Riverside</option>
@@ -776,24 +776,24 @@
                 <h3>Growth Area 1</h3>
                 
                 <div class="dev-plan-prompt">
-                    <label>Dimension I want to develop:</label>
+                    <label for="dev-dimension-1">Dimension I want to develop:</label>
                     <select id="dev-dimension-1" class="form-group" style="width:100%; padding:12px 16px; border:2px solid #dde4e2; border-radius:8px; font-family:inherit; font-size:16px;">
                         <option value="">-- Choose a dimension --</option>
                     </select>
                 </div>
                 
                 <div class="dev-plan-prompt">
-                    <label>Where I am now and what that looks like for me:</label>
+                    <label for="dev-current-1">Where I am now and what that looks like for me:</label>
                     <textarea id="dev-current-1" placeholder="Describe your current level in your own words..."></textarea>
                 </div>
                 
                 <div class="dev-plan-prompt">
-                    <label>Where I'd like to be and what that would look like:</label>
+                    <label for="dev-goal-1">Where I'd like to be and what that would look like:</label>
                     <textarea id="dev-goal-1" placeholder="What would the next level look like for you?"></textarea>
                 </div>
                 
                 <div class="dev-plan-prompt">
-                    <label>One thing I can do in the next month to move in that direction:</label>
+                    <label for="dev-action-1">One thing I can do in the next month to move in that direction:</label>
                     <textarea id="dev-action-1" placeholder="A specific, concrete step..." style="min-height:60px;"></textarea>
                 </div>
                 
@@ -801,11 +801,11 @@
                     <h4>Ask a Teammate</h4>
                     <p>Look at the team results — who is strong in this area? Ask them: <em>"What helped you develop this strength? Is there a resource, experience, or practice you'd recommend?"</em></p>
                     <div class="dev-plan-prompt" style="margin-bottom:0;">
-                        <label>Who I'll ask:</label>
+                        <label for="dev-ask-who-1">Who I'll ask:</label>
                         <input type="text" id="dev-ask-who-1" placeholder="Name of teammate...">
                     </div>
                     <div class="dev-plan-prompt mt-12" style="margin-bottom:0;">
-                        <label>What they recommended:</label>
+                        <label for="dev-ask-rec-1">What they recommended:</label>
                         <textarea id="dev-ask-rec-1" placeholder="Print your plan now and fill this in when you talk..." style="min-height:100px;"></textarea>
                     </div>
                 </div>
@@ -816,32 +816,32 @@
                 <div class="dev-plan-section mt-20">
                     <h3>Growth Area 2</h3>
                     <div class="dev-plan-prompt">
-                        <label>Dimension I want to develop:</label>
+                        <label for="dev-dimension-2">Dimension I want to develop:</label>
                         <select id="dev-dimension-2" style="width:100%; padding:12px 16px; border:2px solid #dde4e2; border-radius:8px; font-family:inherit; font-size:16px;">
                             <option value="">-- Choose a dimension --</option>
                         </select>
                     </div>
                     <div class="dev-plan-prompt">
-                        <label>Where I am now and what that looks like for me:</label>
+                        <label for="dev-current-2">Where I am now and what that looks like for me:</label>
                         <textarea id="dev-current-2" placeholder="Describe your current level..."></textarea>
                     </div>
                     <div class="dev-plan-prompt">
-                        <label>Where I'd like to be and what that would look like:</label>
+                        <label for="dev-goal-2">Where I'd like to be and what that would look like:</label>
                         <textarea id="dev-goal-2" placeholder="What would the next level look like?"></textarea>
                     </div>
                     <div class="dev-plan-prompt">
-                        <label>One thing I can do in the next month:</label>
+                        <label for="dev-action-2">One thing I can do in the next month:</label>
                         <textarea id="dev-action-2" placeholder="A specific step..." style="min-height:60px;"></textarea>
                     </div>
                     <div class="ask-teammate-box">
                         <h4>Ask a Teammate</h4>
                         <p>Who on your team is strong here? Ask them what helped.</p>
                         <div class="dev-plan-prompt" style="margin-bottom:0;">
-                            <label>Who I'll ask:</label>
+                            <label for="dev-ask-who-2">Who I'll ask:</label>
                             <input type="text" id="dev-ask-who-2" placeholder="Name...">
                         </div>
                         <div class="dev-plan-prompt mt-12" style="margin-bottom:0;">
-                            <label>What they recommended:</label>
+                            <label for="dev-ask-rec-2">What they recommended:</label>
                             <textarea id="dev-ask-rec-2" placeholder="Print your plan now and fill this in when you talk..."></textarea>
                         </div>
                     </div>
@@ -854,9 +854,9 @@
             </div>
             
             <div class="export-bar">
-                <button class="btn btn-primary" onclick="downloadPlan()">Download My Plan</button>
-                <button class="btn btn-warm" onclick="emailPlan()">Email to Myself</button>
-                <button class="btn btn-secondary" onclick="savePlanProgress()">Save Progress</button>
+                <button class="btn btn-primary" onclick="downloadPlan()">📄 Download My Plan</button>
+                <button class="btn btn-warm" onclick="emailPlan()">✉️ Email to Myself</button>
+                <button class="btn btn-secondary" onclick="savePlanProgress()">💾 Save Progress</button>
             </div>
             
             <!-- Role context for development -->
@@ -1300,11 +1300,11 @@ function displayCapability(index) {
         const selected = responses[index] === level;
         html += `
             <div class="rating-option ${selected ? 'selected' : ''}" onclick="selectRating(${index}, ${level})">
-                <input type="radio" name="cap-${index}" value="${level}" ${selected ? 'checked' : ''}>
-                <div style="flex:1; cursor:pointer;">
+                <input type="radio" name="cap-${index}" id="cap-${index}-${level}" value="${level}" ${selected ? 'checked' : ''}>
+                <label for="cap-${index}-${level}" style="flex:1; cursor:pointer;">
                     <div class="level-badge">Level ${level} · ${levelLabels[level]}</div>
                     <div class="level-text">${cap.levels[level]}</div>
-                </div>
+                </label>
             </div>
         `;
     }
@@ -1371,10 +1371,10 @@ function showPreferenceStep() {
         return `
             <div class="pref-option" id="pref-opt-${i}" onclick="togglePref(${i})">
                 <input type="checkbox" id="pref-cb-${i}" value="${i}" onclick="event.stopPropagation()">
-                <div>
+                <label for="pref-cb-${i}" onclick="event.stopPropagation()">
                     <div class="pref-label">${cap.name}${levelTag}</div>
                     <div class="pref-desc">${cap.description}</div>
-                </div>
+                </label>
             </div>
         `;
     }).join('');
