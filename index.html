@@ -140,7 +140,9 @@
     position: relative;
 }
 
-.journey-circle:hover .hover-desc {
+.journey-circle:hover .hover-desc,
+.journey-circle:focus .hover-desc,
+.journey-circle:focus-within .hover-desc {
     display: block;
 }
         
@@ -375,17 +377,17 @@
 <body>
 
     <!-- HERO -->
-    <div class="hero">
+    <header class="hero">
         <img src="butterfly_for_portfolio_cropped.jpg" alt="" class="hero-image">
         <div class="hero-overlay">
             <div class="hero-text">
                 <h1>A Curriculum for Do-ers</h1>
             </div>
         </div>
-    </div>
+    </header>
 
     <!-- JOURNEY -->
-    <div class="journey-section">
+    <nav class="journey-section" aria-label="Portfolio projects">
         <div class="journey-track">
            <a href="community-capability-assessment.html" target="_blank" class="journey-circle">
     <span>Assess<br>Your<br>Strengths</span>
@@ -402,8 +404,9 @@
     <div class="hover-desc">A branching scenario where facilitators practice staffing decisions and see six-week consequences.</div>
 </a>
         </div>
-    </div>
+    </nav>
 
+    <main>
     <!-- DESCRIPTION -->
     <div class="description">
         I conceived of and built this program for a new team or an individual working on food insecurity in their community. It includes a <strong>capability self-assessment</strong> to give people a clear read on what they prefer, a <strong>results dashboard</strong> with role suggestions based on strengths and preferences, a <strong>development plan</strong> targeting new skills, a <strong>virtual ILT course</strong> a person or a team can take to shape their direction and connect with people in the community, and a <strong>facilitator's tool</strong> to help people weigh the pros and cons of assigning or taking on a role.
@@ -421,11 +424,12 @@
         <a href="#" class="additional-item" onclick="openModal('sme'); return false;">A Custom Agent<br>for SME Interviews</a>
         <a href="#" class="additional-item" onclick="openModal('credits'); return false;">This Portfolio</a>
     </div>
+    </main>
 
     <!-- FOOTER -->
-    <div class="footer">
+    <footer class="footer">
         <p>Suzanne Estes, Learning Experience Architect</p>
-    </div>
+    </footer>
 
     <!-- SME MODAL -->
     <div class="modal-overlay" id="sme-modal" onclick="if(event.target===this)closeModal('sme')">

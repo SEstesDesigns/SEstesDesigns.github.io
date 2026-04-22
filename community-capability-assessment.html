@@ -622,11 +622,11 @@
             <p class="mt-12">You'll rate yourself across six dimensions of community contribution, then tell us which areas you most enjoy. Every team needs a mix — no single person needs to be strong in all six.</p>
             
             <div class="role-cards">
-                <div class="role-card" onclick="showSection('self-assessment')">
+                <div class="role-card" tabindex="0" role="button" onclick="showSection('self-assessment')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('self-assessment')}">
                     <h3>Take the Assessment</h3>
                     <p>Rate yourself across six dimensions of community contribution. Takes about 5 minutes.</p>
                 </div>
-                <div class="role-card" onclick="showSection('team-view')" style="background: linear-gradient(135deg, var(--teal-accent) 0%, var(--teal-dark) 100%);">
+                <div class="role-card" tabindex="0" role="button" onclick="showSection('team-view')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('team-view')}" style="background: linear-gradient(135deg, var(--teal-accent) 0%, var(--teal-dark) 100%);">
                     <h3>See Your Team</h3>
                     <p>View how your group's strengths combine — where you're strong and where to grow together.</p>
                 </div>
@@ -731,7 +731,7 @@
             
             <!-- Group filter -->
             <div class="mt-20" style="display:flex; gap:12px; align-items:center;">
-                <label style="font-weight:600; font-size:16px; color:var(--teal-dark);">Filter by group:</label>
+                <label for="team-filter" style="font-weight:600; font-size:16px; color:var(--teal-dark);">Filter by group:</label>
                 <select id="team-filter" onchange="renderTeamView()" style="padding:10px 14px; border:2px solid #dde4e2; border-radius:8px; font-family:inherit; font-size:16px;">
                     <option value="all">All Groups</option>
                     <option value="Riverside">Riverside</option>
