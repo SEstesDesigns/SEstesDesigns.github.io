@@ -22,7 +22,7 @@
             --teal-accent: #2D4A56;
             --warm: #9A5C35;
             --warm-light: #F5EDE6;
-            --fern: #5B7E5F;
+            --fern: #4A6B4E;
             --fern-light: #E8F0EB;
             --bark: #3B3028;
             --sand: #D9D0C3;
@@ -1736,7 +1736,7 @@ function generatePlanHTML(data) {
         if (current.length > 0 || aspirational.length > 0) {
             roleSection = `<h2>My Role Matches</h2>`;
             if (current.length > 0) {
-                roleSection += `<div class="field-label" style="color:#5B7E5F;">Ready for now:</div>`;
+                roleSection += `<div class="field-label" style="color:#4A6B4E;">Ready for now:</div>`;
                 current.forEach(r => {
                     roleSection += `<div class="field-value"><strong>${r.name}</strong> (${Math.round(r.fitScore * 100)}% match) — ${r.why}</div>`;
                 });
