@@ -425,7 +425,6 @@
     <!-- ADDITIONAL WORK -->
     <div class="additional-section">
         <span class="additional-label">Additional work:</span>
-        <a href="#" class="additional-item" onclick="openModal('sme'); return false;">A Custom Agent<br>for SME Interviews</a>
         <a href="#" class="additional-item" onclick="openModal('credits'); return false;">Building This Portfolio</a>
     </div>
     </main>
@@ -434,40 +433,6 @@
     <footer class="footer">
         <p>Suzanne Estes, Learning Experience Architect</p>
     </footer>
-
-    <!-- SME MODAL -->
-    <div class="modal-overlay" id="sme-modal" onclick="if(event.target===this)closeModal('sme')">
-        <div class="modal">
-            <button class="close-btn" onclick="closeModal('sme')">&times;</button>
-            <h2>A custom agent for SME interviews</h2>
-            <p>Subject matter experts know their work, but like chefs who cook intuitively, they may skip steps when they explain it. It's easy to forget what a new person wouldn't know. Slowing them down without frustrating them is a challenge for any SME interview.</p>
-            <p>I built a custom AI agent that handles this. It runs the interview, restates each step in plain language, verifies accuracy, and produces a formatted workflow table the SME can hand off to the L&D team.</p>
-
-            <h3>How it works</h3>
-            <p>The agent opens by setting the tone: "Treat me like a new hire sitting at your desk. Don't worry about formatting, grammar, or typos." Then it walks through a teach-back loop:</p>
-            <ul>
-                <li>Ask for one step at a time</li>
-                <li>Restate it in plain language</li>
-                <li>Verify: "Did I get that right? Anything I missed?"</li>
-                <li>Move on only after confirmation</li>
-            </ul>
-            <p>When the process is complete, the agent generates a structured table with three columns: step number, action required, and critical nuance. The SME copies it and sends it to the L&D team.</p>
-
-            <h3>The prompt I wrote</h3>
-            <div class="prompt-block">
-                <div class="label">System instructions (excerpt)</div>
-                Role: Expert Instructional Design Interviewer.<br>
-                Goal: Interview a Subject Matter Expert to extract precise steps for a task.<br>
-                Context: The SME is busy. Your job is to slow them down, simplify their language, and capture hidden nuance.<br><br>
-                Workflow: Warm-up &rarr; Teach-back loop (ask one step, restate in plain English, verify, repeat) &rarr; Handoff (generate Markdown table with Step #, Action Required, Critical Nuance).
-            </div>
-
-            <h3>Why this matters</h3>
-            <p> This tool allows SMEs to provide input in their own way, whether through a guided written interview at their own convenience, or by providing the ID a structured format to document a live interview. </p>
-
-            <p class="credit-line">Built as a Claude Project with custom system instructions. The prompt design, workflow logic, and interview methodology are mine.</p>
-        </div>
-    </div>
 
     <!-- CREDITS MODAL -->
     <div class="modal-overlay" id="credits-modal" onclick="if(event.target===this)closeModal('credits')">
