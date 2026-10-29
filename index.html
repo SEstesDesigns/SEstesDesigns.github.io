@@ -151,11 +151,6 @@
     position: relative;
 }
 
-.journey-circle:hover .hover-desc,
-.journey-circle:focus .hover-desc,
-.journey-circle:focus-within .hover-desc {
-    display: block;
-}
   .reassess-circle {
     background: transparent;
     border: 3px dashed var(--teal);
@@ -363,9 +358,7 @@
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (hover: none) {
-    .journey-circle .hover-desc { display: none !important; }
-        }
+     
         @media (max-width: 1024px) {
           
             .hero-banner { padding: 28px 24px 20px; }
@@ -375,7 +368,7 @@
             .journey-section { padding: 30px 24px; }
             .journey-circle { width: 120px; height: 120px; }
             .journey-circle span { font-size: 16px; }
-            .journey-circle .hover-desc { display: none !important; }
+         
             .journey-line { width: 30px; }
             .description { padding: 16px 24px; font-size: 16px; }
             .additional-section { padding: 14px 24px; gap: 12px; }
@@ -398,9 +391,7 @@
         height: 100px;
     }
     .journey-circle span { font-size: 14px; }
-    .journey-circle .hover-desc {
-        display: none !important;
-    }
+   
 }
     </style>
 </head>
