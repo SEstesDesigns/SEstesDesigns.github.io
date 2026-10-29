@@ -28,51 +28,62 @@
             min-height: 100vh;
         }
 
-        /* ===== HERO ===== */
-        .hero {
-            position: relative;
-            background: var(--sage);
-            overflow: hidden;
-        }
+      /* ===== HERO BANNER ===== */
+.hero-banner {
+    background: var(--sage);
+    padding: 36px 60px 28px;
+    text-align: left;
+}
 
-        .hero-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            object-position: center 30%;
-            display: block;
-            opacity: 0.7;
-        }
+.hero-banner h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--teal-deep);
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+}
 
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                180deg,
-                rgba(154, 184, 164, 0.3) 0%,
-                rgba(154, 184, 164, 0.6) 60%,
-                rgba(194, 212, 200, 1) 100%
-            );
-            display: flex;
-            align-items: flex-end;
-            padding: 0 60px 0;
-        }
+.hero-banner .subtitle {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--teal-dark);
+    margin-top: 8px;
+    line-height: 1.5;
+}
 
-        .hero-text {
-            padding-bottom: 20px;
-        }
+/* ===== EXAMPLE TITLE ===== */
+.example-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--teal-deep);
+    text-align: center;
+    padding: 24px 60px 0;
+}
 
-        .hero-text h1 {
-            font-family: 'Source Serif 4', serif;
-            font-size: 52px;
-            font-weight: 700;
-            color: var(--teal-deep);
-            line-height: 1.1;
-            letter-spacing: -1px;
-        }
+/* ===== SCENARIO INTRO ===== */
+.scenario {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 60px 8px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--bark);
+    text-align: center;
+}
+
+.scenario a {
+    color: var(--teal);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.scenario a:hover {
+    text-decoration: underline;
+    color: var(--teal-dark);
+}
 
         /* ===== JOURNEY ===== */
         .journey-section {
@@ -145,7 +156,21 @@
 .journey-circle:focus-within .hover-desc {
     display: block;
 }
-        
+  .reassess-circle {
+    background: transparent;
+    border: 3px dashed var(--teal);
+    box-shadow: none;
+    cursor: default;
+}
+
+.reassess-circle span {
+    color: var(--teal);
+}
+
+.reassess-circle:hover {
+    background: transparent;
+    transform: none;
+}      
         .journey-line {
             width: 60px;
             height: 4px;
