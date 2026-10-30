@@ -448,3 +448,36 @@
             </ul>
   
          <p class="callout">Tools that ignore existing expertise produce teams that duplicate effort.</p>
+            <h3>Tools used</h3>
+            <ul>
+                <li>HTML, CSS, JavaScript (assessment tool)</li>
+                <li>Articulate Storyline 360 (branching scenario, SCORM publishing)</li>
+                <li>Document, course, and curriculum design (course plan)</li>
+                <li>GitHub Pages (hosting)</li>
+                <li>Claude AI (prototyping partner)</li>
+            </ul>
+
+            <p class="credit-line">Designed and developed by Suzanne Estes, Learning Experience Architect. Assessment and scenario prototyped with Claude AI as a design partner. Course plan, visual design, Storyline development, and all instructional decisions by Suzanne.</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id + '-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(id) {
+            document.getElementById(id + '-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(function(m) {
+                    m.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
